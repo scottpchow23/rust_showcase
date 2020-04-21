@@ -1,4 +1,4 @@
-# test showcase
+# rust showcase
 
 In order to run the tests, you'll need to install the rust nightly toolchain.
 
