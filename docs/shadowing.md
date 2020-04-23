@@ -5,17 +5,18 @@
 You can redeclare variables in rust which allows you to recreate the same variable with a different type. This is useful because you don't pollute the variable namespace for transformations on a variable while still maintaining type safety.
 
 ```rust
-using std::io;
+use std::io;
 
 fn main() {
     println!("Input a number:");
 
     // Original declaration of the mutable variable "input"
     let mut input = String::new();
-    io::stdin().read_line(&mut input)
+    io::stdin()
+        .read_line(&mut input)
         .expect("Failed to read line");
     // The redeclaration/shadow of the variable "input"
-    let input = input.trim().parse().expect("Failed to parse a number");
+    let input: i32 = input.trim().parse().expect("Failed to parse a number");
 
     println!("The number you input was {}", input);
 }
