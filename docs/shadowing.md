@@ -49,14 +49,15 @@ What makes Rust interesting is that it can do variable shadowing without needing
 ```rust
 fn main() {
     let x = "5";
+    println!("X is {}", x); // Prints `X is 5`
     let x = 3;
-    println!("X is {}", x);
+    println!("X is {}", x); // Prints `X is 3`
 }
 ```
 
 ## how it works (conjecture)
 
-Going off behavior and this [answer](https://stackoverflow.com/questions/48227347/does-rust-free-up-the-memory-of-overwritten-variables) on stackoverflow, we believe that runtime-wise, variable shadowing is no more than simple variable hiding. That is to say that the alias used to refer to the old memory now refers to the new memory and the old memory is now inaccessible. This [snippet](https://users.rust-lang.org/t/newbie-question-memory-leaks-by-shadowing/9347/14) of C from the rust forums also provides the same idea:
+Going off the observed behavior and this [answer](https://stackoverflow.com/questions/48227347/does-rust-free-up-the-memory-of-overwritten-variables) on stackoverflow, we believe that runtime-wise, variable shadowing is no more than simple variable hiding. That is to say that the alias used to refer to the old memory now refers to the new memory and the old memory is now inaccessible. This [snippet](https://users.rust-lang.org/t/newbie-question-memory-leaks-by-shadowing/9347/14) of C from the rust forums also provides the same idea:
 
 ```c
 int main() {
@@ -79,5 +80,7 @@ fn main() {
     println!("X is {}", x);
 } // memory for 3 is now deallocated
 ```
+
+We also include example demonstrating dropping [here](../examples/drop/main.rs).
 
 A more detailed explanation can be found on [here](https://stackoverflow.com/questions/48227347/does-rust-free-up-the-memory-of-overwritten-variables).
