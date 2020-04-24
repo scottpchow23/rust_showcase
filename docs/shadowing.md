@@ -53,3 +53,18 @@ fn main() {
     println!("X is {}", x);
 }
 ```
+
+## memory concerns
+
+It should be noted that due to Rust's memory management system, all previously owned memory will remain allocated until the original owning reference is destroyed. In the previous example, the string `"5"` remains in scope until `main()` returns, despite no longer being accessible in any manner. This can be remedied by calling Rust's `drop()` function like so:
+
+```rust
+fn main() {
+    let x = "5";
+    drop(x); // original memory for "5" is now deallocated
+    let x = 3;
+    println!("X is {}", x);
+} // memory for 3 is now deallocated
+```
+
+A more detailed explanation can be found on [here](https://stackoverflow.com/questions/48227347/does-rust-free-up-the-memory-of-overwritten-variables).
