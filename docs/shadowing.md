@@ -44,7 +44,7 @@ block()
 print(x)
 ```
 
-What makes rust interesting is that it can do variable shadowing without needing to change scope, all while maintaining type safety.
+What makes Rust interesting is that it can do variable shadowing without needing to change scope, all while maintaining type safety.
 
 ```rust
 fn main() {
