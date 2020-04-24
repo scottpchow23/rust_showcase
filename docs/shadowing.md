@@ -4,7 +4,7 @@
 
 You can redeclare variables in rust which allows you to recreate the same variable with a different type. This is useful because you don't pollute the variable namespace for transformations on a variable while still maintaining type safety.
 
-You can see a working example [here](../examples/shadowing) and run it with `cargo run --example shadowing`.
+You can see a working example [here](../examples/shadowing/main.rs) and run it with `cargo run --example shadowing`.
 
 ## the details
 
