@@ -3,8 +3,13 @@
 use std::io;
 
 fn main() {
-    let x = String::from("Hello, World!");
-    let y = x.clone();
-    println!("{}", x);
-    println!("{}", y);
+    let mut string = String::from("Hello, World!");
+    println!("{:p}", string.as_ptr()); 
+    foo(&mut string);
+    println!("{:p}", string.as_ptr()); 
+}
+
+fn foo(string: &mut String) {
+    println!("{:p}", string.as_ptr()); 
+    string.push_str(".");
 }
