@@ -10,9 +10,9 @@ That led to an interesting question: what does debugging Rust look like? A quick
 
 ## xxdb to the rescue
 
-This was quite an ephiphany for me: for compiled languages, there is generally no language specific debugger but instead an assembly specific debugger. That is to say, if I compile Rust to an x86 binary, then I can load and run Rust with my favorite C/C++ debugger. In this example I'll be using lldb as my debugger of choice but known that the same principles apply to other debuggers like gdb.
+This was quite an ephiphany for me: for compiled languages, there is generally no language specific debugger but instead an assembly specific debugger. That is to say, if I compile Rust to an x86 binary, then I can load and run Rust with my favorite C/C++ debugger. In this example I'll be using `lldb` as my debugger of choice but known that the same principles apply to other debuggers like `gdb`.
 
-So in theory, we should just be able to take an executable (compiled with symbols) and just feed it to lldb right? Let's try debugging our shadowing executable, found under `./target/debug/examples/shadowing`:
+So in theory, we should just be able to take an executable (compiled with symbols) and just feed it to `lldb` right? Let's try debugging our shadowing executable, found under `./target/debug/examples/shadowing`:
 
 ```bash
 # compile
@@ -28,7 +28,7 @@ We're greeted with the following:
 Current executable set to '/Users/scottpchow/Stuff/grad/programming_runtime_263/test_showcase/target/debug/examples/shadowing' (x86_64).
 ```
 
-So it loads! Let's quickly set a breakpoint on main by running `b main` and start the program with `r`.
+So it loads! Let's quickly set a breakpoint on `main` by running `b main` and start the program with `r`.
 
 ```
 (lldb) b main
@@ -46,7 +46,7 @@ shadowing`main:
 Target 0: (shadowing) stopped.
 ```
 
-Interesting; it seems like there is some outer wrapper to the rust program that is also called `main`. We'll move past it for now using `c`.
+Interesting; it seems like there is some outer wrapper to the Rust program that is also called `main`. You can read more about this shim method [here](https://stackoverflow.com/questions/38416394/unable-to-set-a-breakpoint-on-main-while-debugging-a-program-compiled-with-rust), but for now we'll move past it using `c`.
 
 ```
 (lldb) c
@@ -64,7 +64,7 @@ Process 91882 stopped
 Target 0: (shadowing) stopped.
 ```
 
-Look at that! `lldb` is able to link the binary's instructions to lines in the source code file (courtesy of debug symbols). Let's step through one line so that `input` becomes initialized with `n` and take a look at the input variable with `p input`.
+Look at that! `lldb` is able to link the binary's instructions to lines in the source code file (courtesy of debug symbols). Using `n`, let's step through one line so that `input` becomes initialized and take a look at the input variable using `p input`.
 
 ```
 (lldb) n
@@ -107,4 +107,4 @@ It should be noted that there are extensions `rust-gdb` and `rust-lldb` that are
 
 The primary shortfall with `rust-gdb` and `rust-lldb` is expression parsing/execution. That is to say, they can't parse/execute _Rust_ expressions; it will still parse/execute C/C++ expressions however. Adding parsing/execution of Rust expressions would require extending the `gdb` and `lldb` codebases directly.
 
-It should be noted that if you're allowed to execute arbitrary C/C++ expressions, it seems like it would be possible to violate Rust compile-time constraints. One example might be forcibly updating the underlying reference of a variable to point at another variable; this would violate Rust's ownership principle of having only one owner per variable.
+It should be noted that if you're allowed to execute arbitrary C/C++ expressions, it seems like it would be possible to violate Rust compile-time constraints. One example might be forcibly updating the underlying reference of a variable to point to another variable; this could violate Rust's ownership principle of having only one owner per variable.
