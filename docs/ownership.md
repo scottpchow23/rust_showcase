@@ -7,7 +7,7 @@ Each value in Rust has a variable that owns that value. When the variable goes o
 
 ## the details
 
-The most basic example the highlights a difference is creating two variables that are equal to the same value. In Java and Python, the following code could be used:
+The most basic example that highlights a difference is creating two variables that are equal to the same value. In Java and Python, the following code could be used:
 
 Java:
 ```java
@@ -57,7 +57,7 @@ fn main() {
 
 This is because when x in declared here, it is a String type that is being put onto the heap, instead of the previous example where it was being put onto the stack. Values on the heap in Rust belong to one variable, so when x is initially created, the string value "Hello, World!" belongs to x. But on the next line when y is declared, instead of creating a copy of x's value or letting y point to the value of x, Rust makes y have ownership of "Hello World!", and so now x has nothing. So when x is printed, it will not work. 
 
-Rust does allow for cloning of dynamic data, in which case there will be 2 copies of the data on the stack, as seen in the below example:
+Rust does allow for cloning of dynamic data, in which case there will be 2 copies of the data on the stack. However, this is only possible for objects that implement the copy trait.
 
 Example 3:
 ```rust
