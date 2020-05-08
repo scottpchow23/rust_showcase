@@ -95,3 +95,5 @@ fn main() {
 ```
 
 In this example, two different threads are spawned and given access to the transmitting side of the channel. One of them is given a clone of the transmitting side in order to satisify ownership principles. In this way, it is relatively simple to pass information between threads. 
+
+The code was taken from https://doc.rust-lang.org/book/ch16-02-message-passing.html. 
