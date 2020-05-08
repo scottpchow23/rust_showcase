@@ -1,5 +1,4 @@
 #![feature(test)]
-use std::io;
 
 mod fib;
 

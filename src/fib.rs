@@ -7,7 +7,7 @@ pub fn fib_fast(num: u64) -> u64 {
     let mut tmp1 = 1;
     let mut tmp2 = 0;
 
-    for i in 0..num {
+    for _i in 0..num {
         let temp = tmp1 + tmp2;
         tmp2 = tmp1;
         tmp1 = temp;
@@ -54,7 +54,7 @@ mod tests {
             let n = test::black_box(20);
             let mut num = 0;
             for i in 0..n {
-                fib_fast(i);
+                num = fib_fast(i);
             }
             num
         })
