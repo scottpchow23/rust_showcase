@@ -34,7 +34,7 @@ This trait can be implemented on a struct as follows:
 ```rust
 impl PrettyPrint for Point {
     fn prettyPrint(&self) -> String {
-        format!("self.height: {self.height}\nself.width: {self.width}")
+        format!("self.height: {}\nself.width: {}", self.height, self.width)
     }
 }
 ```
@@ -148,7 +148,7 @@ fn main() {
         let str2 = String.from("ha ha ha ha");
         let shortest = shorter_string(str1.as_str(), str2.as_str());
     }
-    println!(" The shortest string is {str}");
+    println!("the shorter string is {}", shortest);
 }
 ```
 
@@ -179,7 +179,7 @@ fn main() {
     {
         let str2 = String.from("ha ha ha ha");
         let shortest = shorter_string(str1.as_str(), str2.as_str());
-        println!(" The shortest string is {str}");
+        println!("the shorter string is {}", shortest);
     }
 }
 ```
