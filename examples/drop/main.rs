@@ -12,10 +12,10 @@ fn main() {
     println!("Example without calling drop() manually:");
     {
         println!("0");
-        let x = Thing;
+        let _x = Thing;
 
         println!("1");
-        let x = Thing;
+        let _x = Thing;
         println!("2");
     }
     println!("End of example calling drop() manually");
@@ -26,7 +26,7 @@ fn main() {
         let x = Thing;
         drop(x);
         println!("1");
-        let x = Thing;
+        let _x = Thing;
         println!("2");
     }
     println!("End with calling drop() manually");
