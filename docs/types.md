@@ -144,15 +144,16 @@ The problem is that Rust doesn't know what lifetime to assign to the return valu
 // This won't compile either
 fn main() {
     let str1 = String.from("blah blah blah");
+    let shortest;
     {
         let str2 = String.from("ha ha ha ha");
-        let shortest = shorter_string(str1.as_str(), str2.as_str());
+        shortest = shorter_string(str1.as_str(), str2.as_str());
     }
     println!("the shorter string is {}", shortest);
 }
 ```
 
-As we can see here, the two string variables have different lifetimes, with `str1` having the longer of the two. Also notice that the call to `println!` could potentially use a dead reference to `str2` whenever it is the shorter of the two strings.
+As we can see here, the two string variables have different lifetimes, with `str1` having the longer of the two. Also notice that the call to `println!` could potentially use a dead reference to `str2` whenever it is the shorter of the two strings and thus stored in `shortest`.
 
 As a result, Rust will ask you to provide "lifetime annotations" for the various parameters and return values of a function. Lifetime annotation syntax is simply an extension on existing type annotations:
 
@@ -176,9 +177,10 @@ These changes to the function declaration tell the compiler that for a given lif
 ```rust
 fn main() {
     let str1 = String.from("blah blah blah");
+    let shortest;
     {
         let str2 = String.from("ha ha ha ha");
-        let shortest = shorter_string(str1.as_str(), str2.as_str());
+        shortest = shorter_string(str1.as_str(), str2.as_str());
         println!("the shorter string is {}", shortest);
     }
 }
