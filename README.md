@@ -27,6 +27,8 @@ Run the benchmarks with
 rustup run nightly cargo bench
 ```
 
+You'll also need an API key from the UCSB API with the instructions [here](./docs/setup/README.md).
+
 ### setting up benchmarks
 
 - If you want benchmark tests, they are currently a nightly/unstable feature.
