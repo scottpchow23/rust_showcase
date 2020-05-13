@@ -8,5 +8,5 @@ pub struct TimeLocation {
     pub days: Option<String>,
     pub end_time: Option<String>,
     pub room: Option<String>,
-    pub room_capacity: Option<u32>,
+    pub room_capacity: Option<i32>,
 }

@@ -8,7 +8,9 @@ fn main() {
     let settings = settings.try_into::<HashMap<String, String>>().unwrap();
     let api_key = settings.get("api_key").unwrap();
 
-    let classes = ucsb_api_service::get_classes(api_key).unwrap();
+    let classes = ucsb_api_service::get_classes(api_key);
 
-    println!("{:#?}", classes);
+    let json = serde_json::to_string(&classes).unwrap();
+
+    println!("{}", json);
 }

@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[path = "Course.rs"]
-mod course;
+pub mod course;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
