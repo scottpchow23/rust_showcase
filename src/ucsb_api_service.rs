@@ -1,3 +1,5 @@
+extern crate flame;
+
 use reqwest::blocking::Client;
 use std::error::Error;
 
@@ -20,15 +22,22 @@ fn get_classes_response(
     let mut page_number = 1;
     let page_size = 100;
     loop {
-        println!("getting page {}", page_number);
+        let _guard = flame::start_guard(format!("getting page {}", page_number));
+
         let url = String::from(format!("https://api.ucsb.edu/academics/curriculums/v1/classes/search?quarter=20202&pageNumber={}&pageSize={}&includeClassSections=true", page_number, page_size));
         let mut request_builder = client.get(&url);
         request_builder = request_builder.header("accept", "application/json");
         request_builder = request_builder.header("ucsb-api-version", "1.0");
         request_builder = request_builder.header("ucsb-api-key", api_key);
 
-        let response = request_builder.send().unwrap();
-        let response = response.json::<api_response::APIResponse>().unwrap();
+        let response = {
+            let _guard = flame::start_guard("making request to api");
+            request_builder.send().unwrap()
+        };
+        let response = {
+            let _guard = flame::start_guard("deserializing request json into objects");
+            response.json::<api_response::APIResponse>().unwrap()
+        };
         if response.classes.is_empty() {
             break;
         } else {
