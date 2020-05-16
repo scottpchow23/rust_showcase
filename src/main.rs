@@ -1,7 +1,10 @@
 extern crate flame;
 
 use std::collections::HashMap;
+use std::error::Error;
 use std::fs::File;
+use std::io::Write;
+use std::path::Path;
 
 mod ucsb_api_service;
 
@@ -21,6 +24,27 @@ fn main() {
         serde_json::to_string(&classes).unwrap()
     };
 
+    let file_name = "classes.json";
+    serialize_classes(&json, file_name).unwrap();
     flame::dump_html(&mut File::create("flame-graph.html").unwrap()).unwrap();
-    println!("{}", json);
+}
+
+fn serialize_classes(json: &str, file_name: &str) -> Result<(), Box<dyn Error>> {
+    let _guard = flame::start_guard("serialize_classes");
+    let mut file;
+    {
+        let _guard = flame::start_guard("creating classes.json");
+        file = match File::create(&Path::new(file_name)) {
+            Err(e) => panic!("{}", e),
+            Ok(file) => file,
+        };
+    }
+    {
+        let _guard = flame::start_guard("writing to classes.json");
+        match file.write_all(&json.as_bytes()) {
+            Err(e) => panic!("{}", e),
+            Ok(_) => println!("Successfully serialized classes to a file"),
+        };
+    }
+    Ok(())
 }
