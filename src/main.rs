@@ -9,23 +9,30 @@ use std::path::Path;
 mod ucsb_api_service;
 
 fn main() {
+    let guard = flame::start_guard("main");
     let mut settings = config::Config::default();
     settings.merge(config::File::with_name("secrets")).unwrap();
     let settings = settings.try_into::<HashMap<String, String>>().unwrap();
     let api_key = settings.get("api_key").unwrap();
 
-    let classes = {
-        let _guard = flame::start_guard("retrieving ALL classes");
-        ucsb_api_service::get_classes(api_key)
+    let classes_serial = {
+        let _guard = flame::start_guard("retrieving all classes serially");
+        ucsb_api_service::get_classes_serially(api_key).unwrap()
+    };
+
+    let _classes_threaded = {
+        let _guard = flame::start_guard("retrieving all classes with threads");
+        ucsb_api_service::get_classes_threaded(String::from(api_key))
     };
 
     let json = {
         let _guard = flame::start_guard("serializing list of classes to json");
-        serde_json::to_string(&classes).unwrap()
+        serde_json::to_string(&classes_serial).unwrap()
     };
 
     let file_name = "classes.json";
     serialize_classes(&json, file_name).unwrap();
+    guard.end();
     flame::dump_html(&mut File::create("flame-graph.html").unwrap()).unwrap();
 }
 
