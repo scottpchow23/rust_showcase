@@ -1,5 +1,21 @@
 # rust showcase
 
+## the main program
+
+The main program is a simple API fetcher; it retrieves the list of classes for Spring quarter 2020 from UCSB's [curriculumn api](https://developer.ucsb.edu/content/academic-curriculums) and serializes the results to the a file named `classes.json` in the root director of the project.
+
+### setup
+
+You'll need an API key from the UCSB API with the instructions [here](./docs/setup/README.md).
+
+Assuming that is done and you have the cargo toolchain installed, you can run the project with `cargo run`.
+
+### points of interest
+
+- A performance profile is created throughout the runtime of the program using the `flame` crate; the profile can be found in `flame-graph.html` after running the main program at least once.
+- The classes can be retrieved in both a single and multi-threaded manner; both are profiled for comparison in the main file.
+  - _Note:_ there is a difference in the latency of the first request as compared to all other requests; this is likely a result of the underlying use of TCP, which requires time to "warm up."
+
 ## examples
 
 There are a few example programs in this repo that are used to illustrate concepts written about in [docs](./docs). You can get a list of examples to run by running:
@@ -21,7 +37,7 @@ If you don't already have rustup, the toolchain manager for rust, follow the ins
 rustup toolchain install nightly
 ```
 
-Run the benchmarks with
+You can run the benchmarks with
 
 ```bash
 rustup run nightly cargo bench
@@ -36,4 +52,4 @@ rustup run nightly cargo bench
 
 ### writing benchmarks
 
-Rust's compiler is smart, and sometimes this can work against you if you're attempting to test the performance of something. See [this link](https://doc.rust-lang.org/1.12.1/book/benchmark-tests.html#gotcha-optimizations) for details on the common pitfall with regards to benchmarking performance.
+The Rust compiler is smart, and sometimes this can work against you if you're attempting to test the performance of something. See [this link](https://doc.rust-lang.org/1.12.1/book/benchmark-tests.html#gotcha-optimizations) for details on the common pitfall with regards to benchmarking performance.

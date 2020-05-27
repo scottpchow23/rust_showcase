@@ -1,3 +1,4 @@
+#![feature(test)]
 extern crate test;
 
 pub fn fib_fast(num: u64) -> u64 {

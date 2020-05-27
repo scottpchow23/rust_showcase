@@ -1,1 +1,4 @@
 /target
+secrets.toml
+classes.json
+flame-graph.html
