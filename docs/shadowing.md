@@ -74,11 +74,11 @@ It should be noted that due to Rust's memory management system, all previously o
 
 ```rust
 fn main() {
-    let x = "5";
-    drop(x); // original memory for "5" is now deallocated
-    let x = 3;
+    let x = String::from("1");
+    drop(x); // original memory for "1" is now deallocated
+    let x = String::from("2");
     println!("X is {}", x);
-} // memory for 3 is now deallocated
+} // memory for 2 is now deallocated
 ```
 
 We also include example demonstrating dropping [here](../examples/drop/main.rs).
