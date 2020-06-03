@@ -101,7 +101,7 @@ Example 5:
 fn main() {
     let string1 = String::from("Hello, World!");
     println!("{:p}", string1.as_ptr()); //0x1e7a1fa9c20
-    let string3 = foo();
+    let string3 = foo(string1);
     println!("{:p}", string3.as_ptr()); //0x1e7a1fa9c20
 }
 
