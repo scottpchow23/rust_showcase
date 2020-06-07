@@ -8,7 +8,7 @@ The main program is a simple API fetcher; it retrieves the list of classes for S
 
 You'll need an API key from the UCSB API with the instructions [here](./docs/setup/README.md).
 
-Assuming that is done and you have the cargo toolchain installed, you can run the project with `cargo run`.
+Assuming that is done and you have the rust toolchain installed (instructions [here](https://www.rust-lang.org/tools/install)), you can run the project with `cargo run`.
 
 ### points of interest
 
@@ -23,6 +23,17 @@ There are a few example programs in this repo that are used to illustrate concep
 ```bash
 cargo run --example
 ```
+
+## feature documentation
+
+Here is a list of features that we've looked into:
+
+- [Shadowing](./docs/shadowing.md)
+- [Ownership](./docs/ownership.md)
+- [Types](./docs/types.md)
+- [Channels](./docs/channels.md)
+- [Debugging](./docs/debugging.md)
+- [Profiling](./docs/profiling.md)
 
 ## benchmarking
 
@@ -50,6 +61,6 @@ rustup run nightly cargo bench
 - You then need to stick all of your tests in a module, and flag that for testing with `#[cfg(test)]`.
 - Then flag all benchmarks with `#[bench]`.
 
-### writing benchmarks
+### common benchmark pitfall
 
 The Rust compiler is smart, and sometimes this can work against you if you're attempting to test the performance of something. See [this link](https://doc.rust-lang.org/1.12.1/book/benchmark-tests.html#gotcha-optimizations) for details on the common pitfall with regards to benchmarking performance.
